@@ -8,7 +8,7 @@ export interface Chat {
 
 const initialState: BaseState<Chat> = {
   singleItems: {},
-  listItems: { type: 'NotAsked' } 
+  listItems: { type: 'NotAsked' }
 }
 
 @Injectable()

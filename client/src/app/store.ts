@@ -13,14 +13,11 @@ export interface BaseState<T> {
 
 export class Store<T, S extends BaseState<T> = BaseState<T>> {
 
-  private stateData: S 
   private _state: BehaviorSubject<S>
-
   public state: Observable<S>
 
   constructor(initialState: S) {
-    this.stateData = initialState
-    this._state = <BehaviorSubject<S>> new BehaviorSubject(this.stateData)
+    this._state = <BehaviorSubject<S>> new BehaviorSubject(initialState)
     this.state = this._state.asObservable()
   }
 
@@ -31,17 +28,20 @@ export class Store<T, S extends BaseState<T> = BaseState<T>> {
    */
 
   getItem(id: number): WebData<T> {
-    return this.stateData.singleItems[id] || { type: 'NotAsked' }
+    const state = this._state.getValue()
+    return state.singleItems[id] || { type: 'NotAsked' }
   }
 
   setItem(id: number, data: WebData<T>): void {
-    this.stateData.singleItems[id] = data
-    this._state.next(this.stateData)
+    const state = this._state.getValue()
+    state.singleItems[id] = data
+    this._state.next(state)
   }
 
   removeItem(id: number): void {
-    delete this.stateData[id]
-    this._state.next(this.stateData)
+    const state = this._state.getValue()
+    delete state.singleItems[id]
+    this._state.next(state)
   }
 
   /*
@@ -51,12 +51,13 @@ export class Store<T, S extends BaseState<T> = BaseState<T>> {
    */
 
   getList(): WebData<T[]> {
-    return this.stateData.listItems
+    return this._state.getValue().listItems
   }
 
   setList(data: WebData<T[]>): void {
-    this.stateData.listItems = data
-    this._state.next(this.stateData)
+    const state = this._state.getValue()
+    state.listItems = data
+    this._state.next(state)
   }
 
   removeList(): void {
