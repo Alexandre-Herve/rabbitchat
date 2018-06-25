@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ChatStoreService } from './chat-store.service';
+import { Component } from '@angular/core'
+import { ChatStoreService } from './chat-store.service'
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { ChatStoreService } from './chat-store.service';
 })
 export class AppComponent {
 
-  title = 'app';
+  title = 'app'
 
   constructor(
     private chatStore: ChatStoreService

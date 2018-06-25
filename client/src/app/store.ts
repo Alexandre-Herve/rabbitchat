@@ -1,6 +1,6 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { WebData } from './web-data';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { Observable } from 'rxjs/Observable'
+import { WebData } from './web-data'
 
 export interface ItemsDictionnary<T> {
   [key: number]: WebData<T>
@@ -17,7 +17,7 @@ export class Store<T, S extends BaseState<T> = BaseState<T>> {
   public state: Observable<S>
 
   constructor(initialState: S) {
-    this._state = <BehaviorSubject<S>> new BehaviorSubject(initialState)
+    this._state = <BehaviorSubject<S>>new BehaviorSubject(initialState)
     this.state = this._state.asObservable()
   }
 
